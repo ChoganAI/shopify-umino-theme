@@ -1,0 +1,47 @@
+{% assign product = product %}
+
+<div class="product-container">
+    <div class="product-images">
+        {% for image in product.images %}
+            <img src="{{ image | img_url: 'large' }}" alt="{{ product.title }}">
+        {% endfor %}
+    </div>
+
+    <div class="product-details">
+        <h1>{{ product.title }}</h1>
+        <div class="product-description">
+            {{ product.description | escape }}
+        </div>
+        <div class="product-price">
+            {% if product.compare_at_price %}
+                <span class="original-price">${{ product.compare_at_price | money }}</span>
+            {% endif %}
+            <span class="current-price">${{ product.price | money }}</span>
+        </div>
+        <div class="product-variants">
+            {% for variant in product.variants %}
+                <label>
+                    <input type="radio" name="variant" value="{{ variant.id }}" {% if forloop.first %}checked{% endif %}> {{ variant.title }}
+                </label>
+            {% endfor %}
+        </div>
+        <button class="add-to-cart">Add to Cart</button>
+        <button class="wishlist">Add to Wishlist</button>
+        <button class="compare">Compare</button>
+    </div>
+</div>
+
+<div class="related-products">
+    <h2>Related Products</h2>
+    <ul>
+        {% for related_product in collections.related-products.products %}
+            <li>
+                <a href="{{ related_product.url }}">
+                    <img src="{{ related_product.featured_image | img_url: 'small' }}" alt="{{ related_product.title }}">
+                    <p>{{ related_product.title }}</p>
+                    <span>${{ related_product.price | money }}</span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

@@ -1,0 +1,28 @@
+{% comment %} Homepage Template {% endcomment %}
+
+<div class="hero-banner">
+    <h1>Welcome to our Store!</h1>
+    <p>Your one-stop shop for all your needs.</p>
+</div>
+
+<div class="featured-products">
+    <h2>Featured Products</h2>
+    <ul>
+        {% for product in collections.featured.products %}
+            <li>
+                <a href="{{ product.url }}">{{ product.title }}</a>
+                <span>{{ product.price | money }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="dynamic-content">
+    <h2>Latest Updates</h2>
+    {% for block in section.settings.dynamic_blocks %}
+        <div class="dynamic-block">
+            <h3>{{ block.title }}</h3>
+            <p>{{ block.content }}</p>
+        </div>
+    {% endfor %}
+</div>
